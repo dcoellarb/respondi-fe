@@ -1,1 +1,121 @@
 @import "tailwindcss";
+
+/*
+  Spacing uses Tailwind's 4px grid. Stick to 1, 2, 3, 4, 6, and 8
+  (4, 8, 12, 16, 24, and 32 px). Screen padding is 16 px, then 24 px
+  from the md breakpoint. Marketing pages use a 1240 px content width.
+*/
+
+@theme {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #126654;
+  --color-brand-hover: #113c32;
+  --color-mint: #e1f0e6;
+  --color-canvas: #f8f6ef;
+  --color-surface: #ffffff;
+  --color-border: #dce5db;
+  --color-ink: #162922;
+  --color-muted: #435951;
+  --color-danger: #b42318;
+
+  --text-page-title: 28px;
+  --text-page-title--line-height: 36px;
+  --text-page-title--font-weight: 700;
+
+  --text-section: 20px;
+  --text-section--line-height: 28px;
+  --text-section--font-weight: 700;
+
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: 400;
+
+  --text-label: 14px;
+  --text-label--line-height: 20px;
+  --text-label--font-weight: 600;
+
+  --text-meta: 13px;
+  --text-meta--line-height: 18px;
+  --text-meta--font-weight: 500;
+
+  --radius-control: 12px;
+  --radius-card: 18px;
+  --radius-media: 26px;
+
+  --shadow-float: 0 12px 36px rgb(16 40 30 / 20%);
+
+  --max-width-site: 1240px;
+}
+
+@utility text-display {
+  font-size: clamp(2.375rem, 5.25vw, 4.875rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+}
+
+@utility text-display-section {
+  font-size: clamp(2.125rem, 4vw, 3.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  ::selection {
+    background-color: var(--color-mint);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .form-error {
+    color: #b42318;
+  }
+
+  .border-form-error {
+    border-color: #b42318;
+  }
+
+  .ring-form-error {
+    --tw-ring-color: #b42318;
+  }
+
+  /** Public hero: pulse the chat input until the visitor types once. */
+  .simulator-input-nudge {
+    animation: simulator-input-bounce 1.1s ease-in-out infinite;
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--color-brand) 70%, transparent),
+      0 1px 2px rgb(0 0 0 / 0.06);
+  }
+
+  @keyframes simulator-input-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+      box-shadow:
+        0 0 0 2px color-mix(in srgb, var(--color-brand) 55%, transparent),
+        0 1px 2px rgb(0 0 0 / 0.06);
+    }
+    50% {
+      transform: translateY(-3px);
+      box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--color-brand) 45%, transparent),
+        0 4px 10px rgb(18 102 84 / 0.22);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .simulator-input-nudge {
+      animation: none;
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--color-brand) 55%, transparent),
+        0 1px 2px rgb(0 0 0 / 0.06);
+    }
+  }
+}
