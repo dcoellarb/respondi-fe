@@ -38,6 +38,9 @@ export type SignupBody = {
   password: string;
   firstName: string;
   lastName: string;
+  acceptedTerms: boolean;
+  acceptedTermsVersion: string;
+  marketing?: boolean;
 };
 
 export type SigninBody = {

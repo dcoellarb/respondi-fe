@@ -312,7 +312,6 @@ export interface components {
              * @example +15551234567
              */
             phone: string;
-            whatsappBusinessInUse: boolean;
             contactName: string;
             /** @description Optional contact number in E.164. This number is not used to match WhatsApp messages. */
             contactPhone?: string | null;
@@ -330,7 +329,6 @@ export interface components {
             businessName: string;
             /** @example +15551234567 */
             phone: string;
-            whatsappBusinessInUse: boolean;
             contactName: string;
             contactPhone?: string | null;
             /** @enum {string} */
@@ -341,7 +339,6 @@ export interface components {
         ProfilePatch: {
             businessName?: string;
             phone?: string;
-            whatsappBusinessInUse?: boolean;
             contactName?: string;
             contactPhone?: string | null;
             /** @enum {string} */
@@ -404,7 +401,10 @@ export interface components {
             id: string;
             name: string;
             description?: string | null;
-            /** @description Catalog item kind. Services can be linked to schedule windows. */
+            /**
+             * @description Catalog item kind. Services can be linked to schedule windows.
+             * @enum {string}
+             */
             kind?: "product" | "service";
             /** @description For products: unit price. For services: usually the lowest plan price (from price). 1500 with currency USD is 15.00. */
             priceMinor: number;
@@ -428,6 +428,7 @@ export interface components {
         ProductWrite: {
             name: string;
             description?: string | null;
+            /** @enum {string} */
             kind?: "product" | "service";
             priceMinor: number;
             priceRules?: string | null;
@@ -440,6 +441,7 @@ export interface components {
         ProductPatch: {
             name?: string;
             description?: string | null;
+            /** @enum {string} */
             kind?: "product" | "service";
             priceMinor?: number;
             priceRules?: string | null;
@@ -1431,6 +1433,15 @@ export interface operations {
                     password: string;
                     firstName: string;
                     lastName: string;
+                    /** @description Must be true. User explicitly accepted the Terms & Conditions. */
+                    acceptedTerms: boolean;
+                    /** @description Version identifier of the T&C the user accepted. */
+                    acceptedTermsVersion: string;
+                    /**
+                     * @description User opted in to receive commercial communications. Defaults to false.
+                     * @default false
+                     */
+                    marketing?: boolean;
                 };
             };
         };

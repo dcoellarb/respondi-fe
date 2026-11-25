@@ -222,7 +222,6 @@
           "email",
           "businessName",
           "phone",
-          "whatsappBusinessInUse",
           "contactName",
           "scheduleMode",
           "hours",
@@ -249,9 +248,6 @@
             "type": "string",
             "description": "E.164 business number used to match incoming WhatsApp messages.",
             "example": "+15551234567"
-          },
-          "whatsappBusinessInUse": {
-            "type": "boolean"
           },
           "contactName": {
             "type": "string",
@@ -292,7 +288,6 @@
         "required": [
           "businessName",
           "phone",
-          "whatsappBusinessInUse",
           "contactName",
           "scheduleMode"
         ],
@@ -305,9 +300,6 @@
           "phone": {
             "type": "string",
             "example": "+15551234567"
-          },
-          "whatsappBusinessInUse": {
-            "type": "boolean"
           },
           "contactName": {
             "type": "string",
@@ -344,9 +336,6 @@
           },
           "phone": {
             "type": "string"
-          },
-          "whatsappBusinessInUse": {
-            "type": "boolean"
           },
           "contactName": {
             "type": "string",
@@ -2391,7 +2380,9 @@
                   "email",
                   "password",
                   "firstName",
-                  "lastName"
+                  "lastName",
+                  "acceptedTerms",
+                  "acceptedTermsVersion"
                 ],
                 "properties": {
                   "email": {
@@ -2406,6 +2397,19 @@
                   },
                   "lastName": {
                     "type": "string"
+                  },
+                  "acceptedTerms": {
+                    "type": "boolean",
+                    "description": "Must be true. User explicitly accepted the Terms & Conditions."
+                  },
+                  "acceptedTermsVersion": {
+                    "type": "string",
+                    "description": "Version identifier of the T&C the user accepted."
+                  },
+                  "marketing": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "User opted in to receive commercial communications. Defaults to false."
                   }
                 }
               }

@@ -15,7 +15,7 @@ import {
 import { authErrorMessage } from "@/lib/auth-messages";
 import { site } from "@/lib/site";
 
-const PRIVATE_HOME = "/cuenta/negocio";
+const PRIVATE_HOME = "/cuenta";
 
 const passwordSchema = Yup.string()
   .required("Escribe tu contraseña.")
@@ -86,6 +86,9 @@ export function RegisterForm() {
         password: values.password,
         firstName: values.firstName.trim(),
         lastName: values.lastName.trim(),
+        acceptedTerms: values.acceptedTerms ?? false,
+        acceptedTermsVersion: site.termsVersion,
+        marketing: values.marketing ?? false,
       });
       captureAnalyticsEvent(ANALYTICS_EVENTS.SIGNUP_COMPLETED, {
         [ANALYTICS_PROPS.PAGE_PATH]: "/registro",

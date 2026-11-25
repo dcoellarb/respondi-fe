@@ -27,7 +27,6 @@ const E164_HINT =
 type BusinessFormValues = {
   businessName: string;
   phone: string;
-  whatsappBusinessInUse: boolean;
   contactName: string;
   contactPhone: string;
 };
@@ -48,7 +47,6 @@ const businessSchema = Yup.object({
     .required("Escribe el nombre del negocio.")
     .max(120, "Máximo 120 caracteres."),
   phone: phoneRequired,
-  whatsappBusinessInUse: Yup.boolean().required(),
   contactName: Yup.string()
     .trim()
     .required("Escribe el nombre de contacto.")
@@ -64,7 +62,6 @@ function valuesFromProfile(
     return {
       businessName: "",
       phone: "",
-      whatsappBusinessInUse: false,
       contactName: fallbackContactName,
       contactPhone: "",
     };
@@ -73,7 +70,6 @@ function valuesFromProfile(
   return {
     businessName: profile.businessName,
     phone: profile.phone,
-    whatsappBusinessInUse: profile.whatsappBusinessInUse,
     contactName: profile.contactName,
     contactPhone: profile.contactPhone ?? "",
   };
@@ -83,7 +79,6 @@ function toContactFields(values: BusinessFormValues): ProfilePatch {
   return {
     businessName: values.businessName.trim(),
     phone: normalizePhone(values.phone)!,
-    whatsappBusinessInUse: values.whatsappBusinessInUse,
     contactName: values.contactName.trim(),
     contactPhone: normalizePhone(values.contactPhone),
   };
@@ -95,7 +90,6 @@ function toCreateProfile(values: BusinessFormValues): ProfileWrite {
   return {
     businessName: fields.businessName!,
     phone: fields.phone!,
-    whatsappBusinessInUse: fields.whatsappBusinessInUse!,
     contactName: fields.contactName!,
     contactPhone: fields.contactPhone,
     scheduleMode: "per_address",
@@ -238,7 +232,6 @@ export function BusinessProfilePage() {
           handleSubmit,
           isSubmitting,
           isValid,
-          setFieldValue,
           submitCount,
         }) => {
           const showFormValidationError = submitCount > 0 && !isValid;
@@ -294,25 +287,6 @@ export function BusinessProfilePage() {
                 disabled={isSubmitting}
                 required
               />
-
-              <label className="flex min-h-11 items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="whatsappBusinessInUse"
-                  checked={values.whatsappBusinessInUse}
-                  onChange={(event) =>
-                    void setFieldValue(
-                      "whatsappBusinessInUse",
-                      event.target.checked,
-                    )
-                  }
-                  className="mt-1 size-5 shrink-0 accent-brand"
-                  disabled={isSubmitting}
-                />
-                <span className="text-body text-ink">
-                  Ya uso WhatsApp Business en este número.
-                </span>
-              </label>
 
               <TextField
                 label="Nombre de contacto"

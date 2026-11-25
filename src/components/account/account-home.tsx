@@ -263,6 +263,7 @@ function OnboardingFlow({
             !hasProfile &&
             sectionStatus(whatsappSection.id, presence, skipped) === "pending"
           }
+          skippable={false}
           onStart={() => trackSectionStart(whatsappSection.id)}
           onSkip={() => trackSectionSkip(whatsappSection.id)}
         />
@@ -276,6 +277,7 @@ function OnboardingStepCard({
   stepNumber,
   status,
   locked,
+  skippable = true,
   onStart,
   onSkip,
 }: {
@@ -283,6 +285,7 @@ function OnboardingStepCard({
   stepNumber: number;
   status: OnboardingSectionStatus;
   locked: boolean;
+  skippable?: boolean;
   onStart: () => void;
   onSkip: () => void;
 }) {
@@ -341,7 +344,7 @@ function OnboardingStepCard({
               >
                 Completar
               </Link>
-              {status === "pending" && !locked ? (
+              {status === "pending" && !locked && skippable ? (
                 <Button
                   type="button"
                   variant="secondary"
